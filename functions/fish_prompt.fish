@@ -9,6 +9,7 @@ function _is_git_dirty
 end
 
 function fish_prompt
+  set -l last_status $status
   set -l cyan (set_color cyan)
   set -l yellow (set_color -o yellow)
   set -l red (set_color -o red)
@@ -17,10 +18,8 @@ function fish_prompt
   set -l normal (set_color normal)
   set -l blue (set_color -o blue)
 
-  set -l last_status $status
   set -l prompt_status
-
-  if test $last_status -ne 0
+  if [ $last_status -gt 0 ]
     set prompt_status $red '(' $last_status ')'
   end
 
@@ -36,5 +35,5 @@ function fish_prompt
     set git_info "$git_info$yellow)"
   end
 
-  echo -n -s $prompt_status $normal '[' $green (whoami) $normal '@' $cyan (hostname -s) $normal ':' $blue (prompt_pwd) $git_info $normal ']' $normal➜ ' '
+  echo -n -s $prompt_status $normal '[' $green (whoami) $normal '@' $cyan (hostname) $normal ':' $blue (prompt_pwd) $git_info $normal ']' $normal➜ ' '
 end

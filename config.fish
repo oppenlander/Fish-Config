@@ -9,7 +9,7 @@ set fish_greeting ""
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-fish/plugins/*)
 # Custom plugins may be added to ~/.oh-my-fish/custom/plugins/
 # Example format: set fish_plugins autojump bundler
-set fish_plugins node python tmux
+set fish_plugins node python tmux jump
 
 # Path to your custom folder (default path is $FISH/custom)
 #set fish_custom $HOME/dotfiles/oh-my-fish
@@ -20,14 +20,21 @@ alias et 'emacsclient -a "" -t'
 
 alias ec 'emacsclient -a "" -nc'
 
+function pj
+	node -e "console.log(JSON.stringify("{$argv}", null, '\t'));"
+end
+
+alias agl 'ag --pager="less -FRSX"'
+
 #####################################
 # Variables
 # Editor
-set -U EDITOR 'em'
+set -U EDITOR 'et'
+set -gx TERM xterm-256color
 # Language
-set -x LC_ALL en_US.UTF-8
-set -x LANG en_US.UTF-8
-set -x LANGUAGE en_US.UTF-8
+set -gx LC_ALL en_US.UTF-8
+set -gx LANG en_US.UTF-8
+set -gx LANGUAGE en_US.UTF-8
 # Go
 set -gx GOPATH '/home/andrew/Projects/gocode'
 # Java
@@ -54,9 +61,9 @@ set -gx PATH '/home/andrew/bin' $PATH
 #####################################
 # Helper functions
 # virtualenv helpter functions
-. /opt/virtualfish/virtual.fish
-. /opt/virtualfish/auto_activation.fish
-. /opt/virtualfish/global_requirements.fish
+#. /opt/virtualfish/virtual.fish
+#. /opt/virtualfish/auto_activation.fish
+#. /opt/virtualfish/global_requirements.fish
 
 # Load oh-my-fish configuration.
 . $fish_path/oh-my-fish.fish
